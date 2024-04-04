@@ -38,7 +38,7 @@ class Quiz {
       this.__renderQuizBtn();
     } catch (err) {
       throw err;
-    } 
+    }
   }
   __renderQuizBtn() {
     this.#mainContainer.innerHTML = ``;
@@ -139,16 +139,16 @@ class Quiz {
     return array;
   }
   _displayResult() {
-    let confirmEnd = confirm("Do you want to end the quiz ?");
-    if (!confirmEnd) {
-      this.#currQuizNo--;
-      return;
-    }
-    window.location.href = "http://localhost:1234/result.html";
     let rdata;
-    if (!state.attemptedQuestion == 10) {
+    if (state.attemptedQuestion === 0) {
+      state.resultScore = 0;
+    }
+    if (state.attemptedQuestion < 10) {
       rdata = state.resultScore - state.attemptedQuestion;
       state.resultScore -= rdata;
+    }
+    if (state.attemptedQuestion == 10) {
+      return;
     }
     state.results.forEach((e) => {
       if (e.selected !== e.correct) {
@@ -162,6 +162,13 @@ class Quiz {
         quiz: quizArr,
       })
     );
+    console.log(state.resultScore,state.attemptedQuestion)
+    let confirmEnd = confirm("Do you want to end the quiz?");
+    if (!confirmEnd) {
+      this.#currQuizNo--;
+      return;
+    }
+    window.location.href = "http://localhost:1234/result.html";
   }
 }
 let btn = document.querySelector(".getQuiz");
