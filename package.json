@@ -1,0 +1,21 @@
+{
+  "name": "quizcom",
+  "version": "1.0.0",
+  "description": "quiz application",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "keywords": [
+    "quiz"
+  ],
+  "author": "Saeed Gondle",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  },
+  "dependencies": {
+    "core-js": "^3.36.1",
+    "regenerator-runtime": "^0.14.1"
+  }
+}

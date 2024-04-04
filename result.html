@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Result</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <form>
+      <div class="input-con">
+        <input type="radio" name="" id="id">
+        <label for="id">go</label>
+      </div>
+    </form>
+    <script>
+      let Data = JSON.parse(localStorage.getItem("quizResult"));
+      document.body.innerHTML = `<div class="result">Your Score is ${
+        Data.result
+      }</div>
+    <div class="result-container">
+    ${Data.quiz
+      .map((ele) => {
+        return `  <figure>
+        <h3>${ele.question}</h3>
+        <ol>
+          ${ele.options
+            .map((quiEle) => {
+              return `<li style="background-color:${
+                quiEle === ele.correct_answer ? "#409b11" : "red"
+              };">${quiEle}</li>`;
+            })
+            .join("")}
+        </ol>
+      </figure>`;
+      })
+      .join("")}
+    </div>`;
+    </script>
+  </body>
+</html>
