@@ -5,23 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Result</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        width: 100%;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+      }
+    </style>
   </head>
   <body>
     <form>
-      <div class="input-con">
-        <input type="radio" name="" id="id">
-        <label for="id">go</label>
-      </div>
+      <button class="resartQuiz"><a href="index.html">Restart</a></button>
+      <div class="input-con"></div>
     </form>
     <script>
       let Data = JSON.parse(localStorage.getItem("quizResult"));
-      document.body.innerHTML = `<div class="result">Your Score is ${
-        Data.result
-      }</div>
-    <div class="result-container">
+      document.querySelector(
+        ".input-con"
+      ).innerHTML = `<div class="result">Your Score is ${Data.result}</div>
+      <div class="result-container">
+        
     ${Data.quiz
       .map((ele) => {
         return `  <figure>

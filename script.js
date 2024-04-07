@@ -1,5 +1,13 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
+const timeout = function (s) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error(`Request took too long! Timeout after ${s} second`));
+    }, s * 1000);
+  });
+};
+
 let quizArr = [];
 let state = {
   resultScore: 10,
@@ -7,24 +15,23 @@ let state = {
   results: [],
 };
 class Quiz {
-  #mainContainer = document.querySelector(".container");
+  #mainContainer = document.querySelector(".fetch-container");
   #quizContainer = document.querySelector(".quiz-con");
   #currQuiz;
   #currQuizNo = 1;
   #elementBtn;
   #endBtn;
+  #url =
+    "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple";
   constructor() {
     this.getQuiz();
   }
   async getQuiz() {
     try {
       localStorage.removeItem("quizResult");
-      this.#mainContainer.innerHTML = `<span class="loader"></span>`;
-      let fetchQuize = await fetch(
-        "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple"
-        // 'https://opentdb.com/api.php?amount=10'
-      );
-      let quizData = await fetchQuize.json();
+      this._loadSpinner(this.#mainContainer);
+      let fetchQuiz = await Promise.race([fetch(this.#url), timeout(10)]);
+      let quizData = await fetchQuiz.json();
       let { results } = quizData;
       results.forEach((qui, index) => {
         quizArr.push({
@@ -35,10 +42,14 @@ class Quiz {
           options: [qui.correct_answer, ...qui.incorrect_answers],
         });
       });
+      this.#mainContainer.classList.add("container");
       this.__renderQuizBtn();
     } catch (err) {
       throw err;
     }
+  }
+  _loadSpinner(element) {
+    element.innerHTML = `<span class="loader"></span>`;
   }
   __renderQuizBtn() {
     this.#mainContainer.innerHTML = ``;
@@ -73,11 +84,9 @@ class Quiz {
       this.#elementBtn.classList.add("active-quiz");
       this.#currQuiz = quizArr.find((e) => e.id === quizId);
     }
-    this.#quizContainer.innerHTML = `<h2>Question ${
-      this.#currQuiz.IndexNo >= 10
-        ? (this.#currQuiz.IndexNo = 1)
-        : this.#currQuiz.IndexNo
-    }: ${this.#currQuiz.question}</h2>
+    this.#quizContainer.innerHTML = `<h2>Question ${this.#currQuiz.IndexNo}: ${
+      this.#currQuiz.question
+    }</h2>
        <form>
        
         ${this._shuffleArray(this.#currQuiz.options)
@@ -100,28 +109,40 @@ class Quiz {
     this.#endBtn = document.querySelector(".end");
     this.#endBtn.addEventListener("click", this._displayResult.bind(this));
   }
+  _getIndex() {
+    if (this.#currQuizNo > 10) {
+      return ;
+      // throw new Error('Total number of quizes is 10 !!!!')
+    }
+    return ++this.#currQuizNo;
+  }
   submitForm(e) {
     e.preventDefault();
     this.#elementBtn.classList.remove("active-quiz");
     this.#elementBtn = document.querySelector(
-      `[data-IndexNo="${
-        this.#currQuizNo < 10 ? ++this.#currQuizNo : (this.#currQuizNo = 1)
-      }"]`
+      `[data-IndexNo="${this._getIndex()}"]`
     );
-    document.querySelectorAll('[type="radio"]:checked').forEach((e) => {
-      state.results.push({
-        question: this.#currQuiz.question,
-        options: this.#currQuiz.options,
-        selected: e.value,
-        correct: this.#currQuiz.correct_answer,
-      });
-    });
-    if (!state.results) {
-      alert("Select any Option : ");
+    let checkedBtn = document.querySelector('[type="radio"]:checked');
+    if (!checkedBtn) {
+      alert("Select any Option: ");
       this.#currQuizNo--;
       return;
     }
-    state.attemptedQuestion++;
+    let alreadtAttempted = state.results.find(
+      (e) => e.question === this.#currQuiz.question
+    );
+    if (!alreadtAttempted && state.results.length <= 10) {
+      state.results.push({
+        question: this.#currQuiz.question,
+        options: this.#currQuiz.options,
+        selected: checkedBtn.value,
+        correct: this.#currQuiz.correct_answer,
+      });
+      state.attemptedQuestion++;
+    }
+    if (alreadtAttempted) {
+      alreadtAttempted.selected = checkedBtn.value;
+    }
     this._renderQuiz(this.#currQuizNo, null);
   }
   _generateRandomId() {
@@ -139,17 +160,7 @@ class Quiz {
     return array;
   }
   _displayResult() {
-    let rdata;
-    if (state.attemptedQuestion === 0) {
-      state.resultScore = 0;
-    }
-    if (state.attemptedQuestion < 10) {
-      rdata = state.resultScore - state.attemptedQuestion;
-      state.resultScore -= rdata;
-    }
-    if (state.attemptedQuestion == 10) {
-      return;
-    }
+    state.resultScore = state.attemptedQuestion;
     state.results.forEach((e) => {
       if (e.selected !== e.correct) {
         state.resultScore--;
@@ -162,13 +173,14 @@ class Quiz {
         quiz: quizArr,
       })
     );
-    console.log(state.resultScore,state.attemptedQuestion)
+    console.log(state.resultScore, state.attemptedQuestion);
     let confirmEnd = confirm("Do you want to end the quiz?");
     if (!confirmEnd) {
+      this.#elementBtn.classList.add("active-quiz");
       this.#currQuizNo--;
       return;
     }
-    window.location.href = "http://localhost:1234/result.html";
+    window.location.href = `${window.location.origin}/result.html`;
   }
 }
 let btn = document.querySelector(".getQuiz");

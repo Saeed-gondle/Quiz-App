@@ -2,21 +2,21 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Press Start 2P", system-ui;
   color: #5cfc3cbd !important;
+  font-family: "Press Start 2P", system-ui !important;
 }
 
 html, body {
   background-color: #000;
   width: 100%;
-  height: 100vh;
   font-size: 62.5%;
   overflow: hidden auto;
 }
 
 h1 {
   text-align: center;
-  margin: 15rem 0 5rem;
+  letter-spacing: 3px;
+  margin: 15rem 0 3rem;
   font-size: 3.4rem;
   line-height: 1.3;
 }
@@ -46,7 +46,7 @@ p {
   font-size: 1.2rem;
 }
 
-.container {
+.container, .fetch-container {
   justify-content: center;
   align-items: center;
   gap: .5rem;
@@ -66,7 +66,7 @@ p {
   display: flex;
 }
 
-.getQuiz {
+.getQuiz, .resartQuiz {
   background-color: #000;
   padding: 1rem 2rem;
   font-size: 1.2rem;
@@ -81,6 +81,7 @@ p {
 
 h2 {
   font-size: 1.5rem;
+  line-height: 1.5;
 }
 
 form {
@@ -94,6 +95,7 @@ form {
 
 label {
   font-size: 1.5rem;
+  line-height: 1.2;
 }
 
 .active-quiz {
@@ -105,6 +107,7 @@ label {
 
 h3 {
   text-align: center;
+  margin: .5rem;
   font-size: 1.3rem;
 }
 
@@ -117,8 +120,8 @@ figure {
 
 .result-container {
   grid-template-columns: 1fr 1fr;
-  gap: 3rem 1rem;
-  width: 70vw;
+  gap: 3rem;
+  width: 52vw;
   margin: 5rem auto;
   display: grid;
 }
@@ -174,5 +177,375 @@ input[type="submit"] {
   background-color: #065527;
   padding: .5rem 1rem;
   color: #fff !important;
+}
+
+@media (width <= 64em) and (height <= 38em) {
+  h1 {
+    margin: 10rem 0 3rem;
+    font-size: 3rem;
+  }
+
+  h2, label, input[type="submit"], .end {
+    font-size: 1.2rem;
+  }
+}
+
+@media (width <= 48em) and (height <= 64em) {
+  h1 {
+    font-size: 2.4rem;
+  }
+
+  .getQuiz, .resartQuiz {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  h2, label {
+    font-size: 1.2rem;
+  }
+
+  input[type="submit"], .end {
+    margin-top: 1rem;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+  }
+
+  input[type="submit"] {
+    margin-top: 5rem;
+  }
+
+  .result-container {
+    gap: 3rem;
+    width: 79vw;
+    margin: 5rem auto;
+  }
+}
+
+@media (width <= 48em) and (height <= 45em) {
+  h1 {
+    font-size: 2.4rem;
+  }
+
+  .getQuiz, .resartQuiz {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  h2, label {
+    font-size: 1.2rem;
+  }
+
+  input[type="submit"], .end {
+    margin-top: 1rem;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+  }
+
+  input[type="submit"] {
+    margin-top: 5rem;
+  }
+
+  .result-container {
+    gap: 3rem;
+    width: 79vw;
+    margin: 5rem auto;
+  }
+}
+
+@media (width <= 39em) and (height <= 75em) {
+  .fetch-container {
+    margin: 0 22rem;
+  }
+
+  .container {
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+    display: grid;
+  }
+
+  .getQuiz {
+    padding: 1rem;
+  }
+}
+
+@media (width <= 36em) and (height <= 64em) {
+  .fetch-container {
+    margin: 9px 17rem;
+  }
+
+  .result-container {
+    grid-template-columns: 1fr;
+    gap: 5rem 3rem;
+    margin: 5rem auto;
+    display: grid;
+  }
+
+  .container {
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+    display: grid;
+  }
+
+  .quiz-con {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 74vw;
+    height: 101vw;
+    margin: 5rem auto;
+    display: flex;
+  }
+
+  h1 {
+    text-align: center;
+    letter-spacing: 3px;
+    margin: 5rem;
+    font-size: 2.4rem;
+    line-height: 1.3;
+  }
+}
+
+@media (width <= 35em) and (height <= 75em) {
+  .fetch-container {
+    margin: 9px 17rem;
+  }
+
+  .result-container {
+    grid-template-columns: 1fr;
+    gap: 5rem 3rem;
+    margin: 5rem auto;
+    display: grid;
+  }
+
+  .container {
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+    display: grid;
+  }
+
+  .quiz-con {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 74vw;
+    height: 101vw;
+    margin: 5rem auto;
+    display: flex;
+  }
+
+  h1 {
+    text-align: center;
+    letter-spacing: 3px;
+    margin: 5rem;
+    font-size: 2.4rem;
+    line-height: 1.3;
+  }
+}
+
+@media (width <= 35em) and (height <= 45em) {
+  .result-container {
+    grid-template-columns: 1fr;
+    gap: 5rem 3rem;
+    margin: 5rem auto;
+    display: grid;
+  }
+
+  .container {
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+    display: grid;
+  }
+
+  .quiz-con {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 74vw;
+    height: 101vw;
+    margin: 5rem auto;
+    display: flex;
+  }
+
+  h1 {
+    text-align: center;
+    letter-spacing: 3px;
+    margin: 5rem;
+    font-size: 2.4rem;
+    line-height: 1.3;
+  }
+}
+
+@media (width <= 29em) and (height <= 45em) {
+  .result-container {
+    grid-template-columns: 1fr;
+    gap: 5rem 3rem;
+    margin: 5rem auto;
+    display: grid;
+  }
+
+  .container {
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+    display: grid;
+  }
+
+  .quiz-con {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 74vw;
+    height: 101vw;
+    margin: 5rem auto;
+    display: flex;
+  }
+
+  h1 {
+    text-align: center;
+    letter-spacing: 3px;
+    margin: 5rem;
+    font-size: 2.4rem;
+    line-height: 1.3;
+  }
+}
+
+@media (width <= 27em) and (height <= 64em) {
+  .result-container {
+    grid-template-columns: 1fr;
+    gap: 5rem 3rem;
+    margin: 5rem auto;
+    display: grid;
+  }
+
+  .container, .fetch-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: .5rem;
+    width: 25vw;
+    height: 20vh;
+    margin: 0 auto;
+    display: grid;
+  }
+
+  .quiz-con {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 74vw;
+    height: 101vw;
+    margin: 5rem auto;
+    display: flex;
+  }
+
+  h1 {
+    text-align: center;
+    letter-spacing: 3px;
+    margin: 5rem;
+    font-size: 2.4rem;
+    line-height: 1.3;
+  }
+}
+
+@media (width <= 27em) and (height <= 47em) {
+  .result-container {
+    grid-template-columns: 1fr;
+    gap: 5rem 3rem;
+    margin: 5rem auto;
+    display: grid;
+  }
+
+  .container, .fetch-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: .5rem;
+    width: 25vw;
+    height: 20vh;
+    margin: 0 auto;
+    display: grid;
+  }
+
+  .quiz-con {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 74vw;
+    height: 101vw;
+    margin: 5rem auto;
+    display: flex;
+  }
+
+  h1 {
+    text-align: center;
+    letter-spacing: 3px;
+    margin: 5rem;
+    font-size: 2.4rem;
+    line-height: 1.3;
+  }
+}
+
+@media (width <= 27em) and (height <= 45em) {
+  .result-container {
+    grid-template-columns: 1fr;
+    gap: 5rem 3rem;
+    margin: 5rem auto;
+    display: grid;
+  }
+
+  .container, .fetch-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: .5rem;
+    width: 25vw;
+    height: 20vh;
+    margin: 0 auto;
+    display: grid;
+  }
+
+  .quiz-con {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 74vw;
+    height: 101vw;
+    margin: 5rem auto;
+    display: flex;
+  }
+
+  h1 {
+    text-align: center;
+    letter-spacing: 3px;
+    margin: 5rem;
+    font-size: 2.4rem;
+    line-height: 1.3;
+  }
+}
+
+@media (width <= 26em) and (height <= 46em) {
+  .result-container {
+    grid-template-columns: 1fr;
+    gap: 5rem 3rem;
+    margin: 5rem auto;
+    display: grid;
+  }
+
+  .container {
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+    display: grid;
+  }
+
+  .quiz-con {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 74vw;
+    height: 101vw;
+    margin: 5rem auto;
+    display: flex;
+  }
+
+  h1 {
+    text-align: center;
+    letter-spacing: 3px;
+    margin: 5rem;
+    font-size: 2.4rem;
+    line-height: 1.3;
+  }
 }
 /*# sourceMappingURL=index.3a01df49.css.map */
